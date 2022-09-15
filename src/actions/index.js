@@ -8,6 +8,7 @@ export const signUp = (formProps, redirect) => (dispatch) => {
     .then((res) => {
       console.log("Signup successful");
       dispatch({ type: AUTH_USER, payload: res.data.token });
+      localStorage.setItem("token", res.data.token);
     })
     .catch((err) => {
       console.log(err);
@@ -20,4 +21,43 @@ export const signUp = (formProps, redirect) => (dispatch) => {
 
 export const authError = (msg) => {
   return { type: AUTH_ERROR, payload: msg };
+};
+
+export const signOut = () => {
+  localStorage.removeItem("token");
+
+  //can use the same action as sign in, but just pass empty string to unauthenticate the user
+  return { type: AUTH_USER, payload: "" };
+};
+
+export const signIn = (formProps) => (dispatch) => {
+  axios
+    .post("http://localhost:3090/signin", formProps)
+    .then((res) => {
+      console.log(res);
+      dispatch({ type: AUTH_USER, payload: res.data.token });
+    })
+    .catch((err) => {
+      console.log(err);
+      switch (err.response.status) {
+        case 401:
+          dispatch({
+            type: AUTH_ERROR,
+            payload: "Email or password is incorrect",
+          });
+          break;
+        case 404:
+          dispatch({
+            type: AUTH_ERROR,
+            payload: "Connection error: Please try again later",
+          });
+          break;
+        default:
+          console.log(err);
+          dispatch({
+            type: AUTH_ERROR,
+            payload: err.message,
+          });
+      }
+    });
 };

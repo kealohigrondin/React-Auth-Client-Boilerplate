@@ -13,8 +13,13 @@ class Nav extends React.Component {
         <Link to="/signup" className="item">
           Sign Up
         </Link>
+        <Link to="/signout" className="item">
+          Sign Out
+        </Link>
         <div className="right menu">
-          <button>Sign In</button>
+          <Link to="/signin" className="item">
+            Sign In
+          </Link>
         </div>
       </div>
     );

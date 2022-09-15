@@ -3,7 +3,12 @@ import requireAuth from "./requireAuth";
 
 class SecureHome extends React.Component {
   render() {
-    return <h1>Secure Homepage (user is logged in at this point)</h1>;
+    return (
+      <div>
+        <h1>Secure Homepage </h1>
+        <p>(user is logged in at this point)</p>
+      </div>
+    );
   }
 }
 export default requireAuth(SecureHome);

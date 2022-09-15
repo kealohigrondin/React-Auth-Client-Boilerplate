@@ -10,6 +10,9 @@ import App from "./components/App";
 
 const store = configureStore({
   reducer: reducers,
+  preloadedState: {
+    auth: { authenticated: localStorage.getItem("token"), errorMessage: "" },
+  },
   devTools: true,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware().concat(reduxThunk),
@@ -20,7 +23,7 @@ const root = createRoot(container);
 root.render(
   <BrowserRouter>
     <Provider store={store}>
-    <App />
+      <App />
     </Provider>
   </BrowserRouter>
 );
