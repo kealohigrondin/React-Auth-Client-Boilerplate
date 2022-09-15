@@ -1,10 +1,12 @@
 import axios from "axios";
 import { AUTH_USER, AUTH_ERROR } from "./types";
 
-export const signUp = (formProps, redirect) => (dispatch) => {
+const rootUrl = "https://localhost:3090";
+
+export const signUp = (formProps) => (dispatch) => {
   //sign a new person up
   axios
-    .post("http://localhost:3090/signup", formProps)
+    .post(rootUrl + "/signup", formProps)
     .then((res) => {
       console.log("Signup successful");
       dispatch({ type: AUTH_USER, payload: res.data.token });
@@ -32,7 +34,7 @@ export const signOut = () => {
 
 export const signIn = (formProps) => (dispatch) => {
   axios
-    .post("http://localhost:3090/signin", formProps)
+    .post(rootUrl + "/signin", formProps)
     .then((res) => {
       console.log(res);
       dispatch({ type: AUTH_USER, payload: res.data.token });
