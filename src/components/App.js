@@ -3,7 +3,7 @@ import { Route, Routes } from "react-router-dom";
 
 import Nav from "./Nav";
 import Welcome from "./Welcome";
-import Signup from "../auth/Signup";
+import SignUp from "../components/auth/SignUp";
 
 class App extends React.Component {
   render() {
@@ -13,7 +13,7 @@ class App extends React.Component {
         <div className="ui container">
           <Routes>
             <Route path="/" element={<Welcome />} />
-            <Route path="/signup" element={<Signup />} />
+            <Route path="/signup" element={<SignUp />} />
           </Routes>
         </div>
       </>

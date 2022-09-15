@@ -8,6 +8,7 @@ export default function authReducer(state = INITIAL_STATE, action) {
     case "LOGIN":
     case "LOGOUT":
     case "SIGNUP":
+      return state;
     default:
       return state;
   }
