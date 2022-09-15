@@ -2,9 +2,11 @@ import React from "react";
 import { connect } from "react-redux";
 import { Field, Form } from "react-final-form";
 
-import { signUp } from "../../actions/index";
+import { signUp, authError } from "../../actions/index";
 
 class SignUp extends React.Component {
+  state = { errorMessage: "" };
+
   handleSubmit = ({ email, password, passwordConfirm }) => {
     console.log(
       `Email: ${email}\nPW: ${password}\nPWconfirm: ${passwordConfirm}`
@@ -13,6 +15,8 @@ class SignUp extends React.Component {
       this.props.signUp({ email, password });
     } else {
       console.log("passwords don't match");
+      this.props.authError("Passwords don't match");
+      //clear pw fields
     }
   };
 
@@ -52,6 +56,7 @@ class SignUp extends React.Component {
               <button className="ui button primary" type="submit">
                 Submit
               </button>
+              {this.props.errorMessage}
             </fieldset>
           </form>
         )}
@@ -59,4 +64,11 @@ class SignUp extends React.Component {
     );
   }
 }
-export default connect(null, { signUp })(SignUp);
+
+export const mapStateToProps = (state) => {
+  return {
+    errorMessage: state.auth.errorMessage,
+  };
+};
+
+export default connect(mapStateToProps, { signUp, authError })(SignUp);
